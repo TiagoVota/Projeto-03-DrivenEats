@@ -8,6 +8,9 @@
 .include-variables {
     /* Enfiar umas paradas aqui */
     --header-footer-height: 92px;
+    --selection-border: 5px;
+    --dish-padding: 18px 14px 13px 14px;
+    --selected-dish-padding: calc(18px - 5px) calc(14px - 5px) calc(13px - 5px) calc(14px - 5px);
 }
 
 body {
@@ -21,18 +24,54 @@ body {
 
 .header {
     /* Mudar fonte para Righteous */
+    height: var(--header-footer-height);
+    padding: 8px 0px 18px 21px;
+    
     position: fixed;
     left: 0;
     right: 0;
     top: 0;
+    
+    background-color: #CF2B2B;
+}
 
-    height: var(--header-footer-height);
+.header-title {
+    font-family: 'Righteous', cursive;
+
+    height: 44px;
+    font-weight: 400;
+    font-size: 44px
+}
+
+.header-subtitle {
+    margin-top: 5px;
+    height: 17px;
+    font-weight: 400;
+    font-size: 18px
 }
 
 .container {
     /* TIRAR A ALTURA */
     height: 800px;
     margin: var(--header-footer-height) 0;
+    padding: calc(31px - 27px) 0px 16px calc(19px - 16px); /* cálculos feitos para descontar as margens dos elementos contidos nele */
+    
+    background-color: #E5E5E5;
+    background-color: #FFF005;
+}
+
+.section {
+    margin-top: 27px;
+    margin-left: 16px;
+}
+
+.section-title {
+    font-family: 'Righteous', cursive;
+    
+    margin-top: 25px;
+    height: 23px;
+    font-weight: 400;
+    font-size: 26px
 }
 
 .footer {
@@ -55,18 +94,10 @@ body {
     color: #333333;
 }
 
-.header {
-    background-color: #CF2B2B;
-}
-
-.container {
-    background-color: #E5E5E5;
-    background-color: #FFF005;
-}
-
 
 .dishes {
     display: flex;
+    margin-top: 17px;
     
     background-color: blue;
 }
@@ -74,12 +105,40 @@ body {
 .dish {
     width: 172px;
     height: 216px;
-    align-items: center;
-    padding: 18px 14px 13px 14px;
-
+    padding: var(--dish-padding);
+    
+    border-radius: 9px;
+    
     background-color: red;
+}
+
+.selected-dish {
+    border: 5px #32B72F solid;
+    padding: var(--selected-dish-padding)
 }
 
 .dish img {
     height: 87px;
+    border-radius: 4px;
+}
+
+.dish-title {
+    margin-top: 8px;
+    height: 23px;
+    font-weight: 700;
+    font-size: 16px
+}
+
+.dish-description {
+    margin-top: 4px;
+    height: 39px;
+    font-weight: 300;
+    font-size: 15px
+}
+
+.dish-price {
+    margin-top: 5px;
+    height: 19px;
+    font-weight: 400;
+    font-size: 16px
 }
