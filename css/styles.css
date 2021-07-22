@@ -1,0 +1,85 @@
+* {
+    box-sizing: border-box;
+
+    /* Fonte Roboto */
+}
+
+/* Variáveis */
+.include-variables {
+    /* Enfiar umas paradas aqui */
+    --header-footer-height: 92px;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Fontes */
+.fontes {
+    font-family: 'Righteous', cursive;
+}
+
+.header {
+    /* Mudar fonte para Righteous */
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+
+    height: var(--header-footer-height);
+}
+
+.container {
+    /* TIRAR A ALTURA */
+    height: 800px;
+    margin: var(--header-footer-height) 0;
+}
+
+.footer {
+    height: var(--header-footer-height);
+    position: fixed;
+    right: 0;
+    left: 0;
+    bottom: 0;
+
+    background-color: purple;
+}
+
+.font-gray {
+    /* Para descrições */
+    color: #A6A6A6;
+}
+
+.font-semi-black {
+    /* Para títulos */
+    color: #333333;
+}
+
+.header {
+    background-color: #CF2B2B;
+}
+
+.container {
+    background-color: #E5E5E5;
+    background-color: #FFF005;
+}
+
+
+.dishes {
+    display: flex;
+    
+    background-color: blue;
+}
+
+.dish {
+    width: 172px;
+    height: 216px;
+    align-items: center;
+    padding: 18px 14px 13px 14px;
+
+    background-color: red;
+}
+
+.dish img {
+    height: 87px;
+}
