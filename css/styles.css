@@ -27,6 +27,8 @@ body {
     left: 0;
     right: 0;
     top: 0;
+
+    z-index: 1;
     
     background-color: #CF2B2B;
 }
@@ -47,8 +49,6 @@ body {
 }
 
 .container {
-    /* TIRAR A ALTURA */
-    height: 800px;
     margin: var(--header-footer-height) 0;
     padding: calc(31px - 27px) 0px 16px calc(19px - 16px); /* cálculos feitos para descontar as margens dos elementos contidos nele */
     
@@ -77,6 +77,8 @@ body {
     left: 0;
     bottom: 0;
     align-items: center;
+
+    z-index: 1;
 
     display: flex;
     justify-content: center;
@@ -111,6 +113,8 @@ body {
     border-radius: 9px;
     
     background-color: red;
+    
+    position: relative;
 }
 
 .selected-dish {
@@ -123,13 +127,27 @@ body {
     border-radius: 4px;
 }
 
+ion-icon {
+    width: 19px;
+    height: 19px;
+
+    position: absolute;
+    right: calc(11px - var(--selection-border));
+    bottom: calc(14px - var(--selection-border));
+
+    color: #32B72F;
+}
+
+.hidden-item {
+    display: none;
+}
+
 .dish-title {
     margin-top: 8px;
     height: 23px;
     font-weight: 700;
     font-size: 16px;
 }
-
 
 .dish-description {
     margin-top: 4px;
@@ -154,12 +172,10 @@ body {
     border-radius: 50px;
     background-color: #CBCBCB;
     border-width: 0px;
-}
 
-.finalize-order-button > p {
+    font-family: 'Roboto', sans-serif;
     font-weight: 400;
-
+    
     font-size: 20px;
     line-height: 23px;
 }
-
