@@ -41,14 +41,14 @@ body {
 
     height: 44px;
     font-weight: 400;
-    font-size: 44px
+    font-size: 44px;
 }
 
 .header-subtitle {
     margin-top: 5px;
     height: 17px;
     font-weight: 400;
-    font-size: 18px
+    font-size: 18px;
 }
 
 .container {
@@ -134,7 +134,7 @@ body {
 
 .selected-dish {
     border: 5px #32B72F solid;
-    padding: var(--selected-dish-padding)
+    padding: var(--selected-dish-padding);
 }
 
 .dish img {
@@ -180,11 +180,12 @@ ion-icon {
     margin-top: 5px;
     height: 19px;
     font-weight: 400;
-    font-size: 16px
+    font-size: 16px;
 }
 
 .finalize-order-button {
     width: calc(100vw - 50px);
+    height: 48px;
     border-radius: 50px;
     background-color: #CBCBCB;
     border-width: 0px;
@@ -196,4 +197,9 @@ ion-icon {
     line-height: 23px;
 
     color: #FFFFFF;
+}
+
+.ready_to_finalize_order {
+    font-weight: 700;
+    background-color: #32B72F;
 }

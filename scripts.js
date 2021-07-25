@@ -43,6 +43,22 @@ function is_all_selected() {
     return true
 }
 
+// Faço as mudanças no botão para finalizar ordem
+function activate_button() {
+    button_element = document.querySelector('.finalize-order-button')
+    is_ready = is_all_selected()
+    
+    // Muda aparência e texto botão se todas as classes estão selecionadas
+    if (is_ready) {
+        // Altera aparência e texto do botão
+        button_element.classList.add('ready_to_finalize_order')
+        button_element.innerHTML = 'Fechar pedido'
+    } else {
+        button_element.classList.remove('ready_to_finalize_order')
+        button_element.innerHTML = 'Selecione os 3 itens<br/>para fechar o pedido'
+    }
+}
+
 function select_dish(element_dish) {
     // Pegando parte dos pratos
     father_element = element_dish.parentNode
@@ -69,7 +85,6 @@ function select_dish(element_dish) {
     // Adiciona o item selecionado à lista de itens selecionados
     add_selected_item(element_dish)
 
-    // Se todos estiveres selecionados, habilita botão de finalização de compra
-    if (is_all_selected()) {
-    }
+    // Ativa/desativa botão para finalizar ordem
+    activate_button()
 }
