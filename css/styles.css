@@ -112,6 +112,11 @@ body {
     background-color: blue;
 }
 
+.dishes::-webkit-scrollbar {
+    /* Tirar Scrollbar ENTENDER O CÓDIGO */
+    display: none;
+}
+
 .dish {
     width: 172px;
     margin-left: var(--section-margin-left);
