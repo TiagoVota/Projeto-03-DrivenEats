@@ -5,7 +5,7 @@ let selected_items = [null, null, null]
 function add_selected_item(element_dish) {
     // Pega a seção de pratos e verifica qual classe é (comida, bebida ou sobremesa)
     // e coloca esse item na lista de itens selecionados, no seu devido lugar
-    section_element = element_dish.parentNode.parentNode  // Pega a seção efetivamente
+    let section_element = element_dish.parentNode.parentNode  // Pega a seção efetivamente
     if (section_element.classList.contains('food')) {
         
         selected_items[0] = null
@@ -45,8 +45,8 @@ function is_all_selected() {
 
 // Faço as mudanças no botão para finalizar ordem
 function activate_button() {
-    button_element = document.querySelector('.finalize-order-button')
-    is_ready = is_all_selected()
+    const button_element = document.querySelector('.finalize-order-button')
+    let is_ready = is_all_selected()
     
     // Muda aparência e texto botão se todas as classes estão selecionadas
     if (is_ready) {
@@ -61,10 +61,10 @@ function activate_button() {
 
 function select_dish(element_dish) {
     // Pegando parte dos pratos
-    father_element = element_dish.parentNode
+    const father_element = element_dish.parentNode
 
     // Buscando prato selecionado
-    selected_dish_element = father_element.querySelector('.selected-dish')
+    const selected_dish_element = father_element.querySelector('.selected-dish')
     
     
     // Caso haja um prato previamente selecionado
@@ -72,7 +72,7 @@ function select_dish(element_dish) {
         // Remove a seleção do prato
         selected_dish_element.classList.remove('selected-dish')
         // Escolhe o ion-icon de selecionado desse prato e desativa
-        check_item_element_selected = selected_dish_element.querySelector('ion-icon')
+        let check_item_element_selected = selected_dish_element.querySelector('ion-icon')
         check_item_element_selected.classList.add('hidden-item')
     }
     
@@ -87,4 +87,72 @@ function select_dish(element_dish) {
 
     // Ativa/desativa botão para finalizar ordem
     activate_button()
+}
+
+function currency_to_number(currency) {
+    // Função que pega valor em moeda (R$) e retorna ele como numeral
+    currency = currency.replace('R$ ', '')
+    currency = currency.replace(',', '.')
+    return Number(currency)
+}
+
+function number_to_currency(number) {
+    // Função que pega valor numeral e retorna ele como uma string em R$
+    return number.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})
+}
+
+function make_order_message(name, address) {
+    //  Fazer lista com as compras, cada elemento da lista é um prato assim:
+    // [nome do prato, preço do prato]
+    let orders = []
+    let total_value = 0
+
+    for (let i=0; i<3; i++) {
+        // console.log(selected_item)
+        let dish_name = selected_items[i].querySelector('.dish-title')
+        let dish_price = selected_items[i].querySelector('.dish-price')
+
+        orders.push([])
+        orders[i].push(dish_name.innerText)
+        orders[i].push(currency_to_number(dish_price.innerText))
+
+        total_value += orders[i][1]
+    }
+
+    let text_order = `Olá, gostaria de fazer o pedido:
+    - *Prato*: ${orders[0][0]}
+    - *Bebida*: ${orders[1][0]}
+    - *Sobremesa*: ${orders[2][0]}
+    *Total*: ${number_to_currency(total_value)}
+
+    *Nome*: ${name}
+    *Endereço*: ${address}`
+    
+    return text_order
+}
+
+function link_to_whatsapp(restaurant_text_number, text_order) {
+    const url_base = 'https://wa.me/'
+
+    const text_url = encodeURIComponent(text_order)
+
+    const final_url = url_base + restaurant_text_number + '?text=' + text_url
+    
+    return final_url
+}
+
+function send_message_whatsapp() {
+    // Recolhendo os dados do cliente
+    const name = prompt('Qual o seu nome?')
+    const address = prompt('Qual o endereço de entrega?')
+
+    // Função que cria a mensagem
+    let text_order = make_order_message(name, address)
+
+    // Função que cria o link
+    let whatsapp_link = link_to_whatsapp('5547992312249', text_order)
+    console.log(whatsapp_link)
+
+    // Abre o WhatsApp em outra página
+    window.open(whatsapp_link)
 }
