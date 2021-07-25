@@ -1,5 +1,9 @@
 // Lista com os itens selecionados. Inicialmente não há nenhum
 let selected_items = [null, null, null]
+// Lista com os pedidos realizados
+let orders = []
+// Valor total da ordem de compra
+let total_value = 0
 
 
 function add_selected_item(element_dish) {
@@ -104,8 +108,6 @@ function number_to_currency(number) {
 function make_order_message(name, address) {
     //  Fazer lista com as compras, cada elemento da lista é um prato assim:
     // [nome do prato, preço do prato]
-    let orders = []
-    let total_value = 0
 
     for (let i=0; i<3; i++) {
         // console.log(selected_item)
@@ -132,6 +134,7 @@ function make_order_message(name, address) {
 }
 
 function link_to_whatsapp(restaurant_text_number, text_order) {
+    // Gerar link para abrir o whatsapp com a mensagem pronta
     const url_base = 'https://wa.me/'
 
     const text_url = encodeURIComponent(text_order)
