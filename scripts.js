@@ -12,18 +12,21 @@ function add_selected_item(element_dish) {
     const section_element = element_dish.parentNode.parentNode  // Pega a seção efetivamente
     if (section_element.classList.contains('food')) {
         // Comida
+        selected_items[0] = null
         if (element_dish.classList.contains('selected-dish')) {
             selected_items[0] = element_dish
         }
-
+        
     } else if (section_element.classList.contains('drink')) {
         // Bebida
+        selected_items[1] = null
         if (element_dish.classList.contains('selected-dish')) {
             selected_items[1] = element_dish
         }
 
     } else if (section_element.classList.contains('dessert')) {
         // Sobremesa
+        selected_items[2] = null
         if (element_dish.classList.contains('selected-dish')) {
             selected_items[2] = element_dish
         }
