@@ -10,6 +10,8 @@ function add_selected_item(element_dish) {
     // Pega a seção de pratos e verifica qual classe é (comida, bebida ou sobremesa)
     // e coloca esse item na lista de itens selecionados, no seu devido lugar
     const section_element = element_dish.parentNode.parentNode  // Pega a seção efetivamente
+    // Em cada seção a função primeiro pré-estabelece que não nenhum item selecionado para nossa lista
+    // após isso, procura por um item selecionado na seção
     if (section_element.classList.contains('food')) {
         // Comida
         selected_items[0] = null
