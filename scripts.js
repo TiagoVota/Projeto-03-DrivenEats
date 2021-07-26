@@ -32,8 +32,8 @@ function add_selected_item(element_dish) {
             selected_items[2] = element_dish
         }
     }
-    console.log(selected_items)
 }
+
 
 // Quero verificar se todos os itens foram selecionados, por isso farei uma função
 // para fazer essa verificação toda vez que um item é selecionado/não selecionado
@@ -46,6 +46,7 @@ function is_all_selected() {
     }
     return true
 }
+
 
 // Faço as mudanças no botão para finalizar ordem
 function activate_button() {
@@ -62,6 +63,7 @@ function activate_button() {
         button_element.innerHTML = 'Selecione os 3 itens<br/>para fechar o pedido'
     }
 }
+
 
 function select_dish(element_dish) {
     // Pegando parte dos pratos
@@ -93,6 +95,24 @@ function select_dish(element_dish) {
     activate_button()
 }
 
+
+function make_order_list() {
+    //  Fazer lista com as compras, cada elemento da lista é um prato assim:
+    // [nome do prato, preço do prato]
+    total_value = 0  // Por segurança, reinicia o valor total do pedido
+    for (let i=0; i<3; i++) {
+        let dish_name = selected_items[i].querySelector('.dish-title')
+        let dish_price = selected_items[i].querySelector('.dish-price')
+
+        orders.push([])
+        orders[i].push(dish_name.innerText)
+        orders[i].push(dish_price.innerText)
+
+        total_value += currency_to_number(orders[i][1])
+    }
+}
+
+
 function currency_to_number(currency) {
     // Função que pega valor em moeda (R$) e retorna ele como numeral
     currency = currency.replace('R$ ', '')
@@ -100,27 +120,63 @@ function currency_to_number(currency) {
     return Number(currency)
 }
 
+
 function number_to_currency(number) {
     // Função que pega valor numeral e retorna ele como uma string em R$
     return number.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})
 }
 
-function make_order_message(name, address) {
-    //  Fazer lista com as compras, cada elemento da lista é um prato assim:
-    // [nome do prato, preço do prato]
 
-    for (let i=0; i<3; i++) {
-        // console.log(selected_item)
-        let dish_name = selected_items[i].querySelector('.dish-title')
-        let dish_price = selected_items[i].querySelector('.dish-price')
+function change_innerHTML(element, class_name, new_value) {
+    return element.querySelector(class_name).innerHTML = new_value
+}
 
-        orders.push([])
-        orders[i].push(dish_name.innerText)
-        orders[i].push(currency_to_number(dish_price.innerText))
 
-        total_value += orders[i][1]
+function update_order_screen(element=document) {
+    // Atualiza as ordens finais do cliente
+    make_order_list()
+
+    // Vamos atualizar manualmente para não abusar muita dos recursos que não aprendemos
+    change_innerHTML(element, '.detail-food-title', orders[0][0])
+    change_innerHTML(element, '.detail-food-price', orders[0][1])
+    change_innerHTML(element, '.detail-drink-title', orders[1][0])
+    change_innerHTML(element, '.detail-drink-price', orders[1][1])
+    change_innerHTML(element, '.detail-dessert-title', orders[2][0])
+    change_innerHTML(element, '.detail-dessert-price', orders[2][1])
+    change_innerHTML(element, '.detail-total-price', number_to_currency(total_value))
+}
+
+
+function change_visibility_final_screen() {
+    // Aparece ou remove a tela final
+    const finalize_order_screen = document.querySelector('.finalize-order-screen')
+    finalize_order_screen.classList.toggle('hidden-item')
+}
+
+
+function send_to_final_screen() {
+    // Verifica se todos os pedidos foram escolhidos antes de ir para próxima tela
+    if (!is_all_selected()) {
+        return {}
     }
 
+    change_visibility_final_screen()
+
+    // Atualiza os detalhes da ordem de compra com o pedido
+    update_order_screen()
+}
+
+
+function make_order_message(name, address) {
+    // Verificação se o nome ou o endereço não foram preenchidos
+    if (name === null || name === '') {
+        name = 'Um fora da lei >.<'
+    }
+    if (address === null || address === '') {
+        address = 'Um lugar fantasma u.u'
+    }
+
+    // Faz a mensagem
     let text_order = `Olá, gostaria de fazer o pedido:
     - *Prato*: ${orders[0][0]}
     - *Bebida*: ${orders[1][0]}
@@ -133,6 +189,7 @@ function make_order_message(name, address) {
     return text_order
 }
 
+
 function link_to_whatsapp(restaurant_text_number, text_order) {
     // Gerar link para abrir o whatsapp com a mensagem pronta
     const url_base = 'https://wa.me/'
@@ -144,6 +201,7 @@ function link_to_whatsapp(restaurant_text_number, text_order) {
     return final_url
 }
 
+
 function send_message_whatsapp() {
     // Recolhendo os dados do cliente
     const name = prompt('Qual o seu nome?')
@@ -154,7 +212,6 @@ function send_message_whatsapp() {
 
     // Função que cria o link
     let whatsapp_link = link_to_whatsapp('5547992312249', text_order)
-    console.log(whatsapp_link)
 
     // Abre o WhatsApp em outra página
     window.open(whatsapp_link)

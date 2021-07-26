@@ -295,37 +295,37 @@
     <!-- Menu para finalizar o pedido -->
     <div class="footer">
         <!-- Botão para finalização do pedido -->
-        <button class="finalize-order-button" onclick="send_message_whatsapp()">
+        <button class="finalize-order-button" onclick="send_to_final_screen(this)">
             Selecione os 3 itens<br/>para fechar o pedido
         </button>
     </div>
 
     <!-- Tela de compra -->
-    <div class="finalize-order-screen">
+    <div class="finalize-order-screen hidden-item">
         <!-- Menu final da compra -->
         <div class="finalize-order-menu">
             <p>Confirme seu pedido</p>
             <!-- Detalhes do pedido -->
             <div class="order-details">
-                <div class="order-detail detail-food">
-                    <p>Comida</p>
-                    <p>14,90</p>
+                <div class="order-detail">
+                    <p class="detail-food-title">Comida</p>
+                    <p class="detail-food-price">14,90</p>
                 </div>
                 <div class="order-detail detail-drink">
-                    <p>Bebida</p>
-                    <p>14,90</p>
+                    <p class="detail-drink-title">Bebida</p>
+                    <p class="detail-drink-price">14,90</p>
                 </div>
                 <div class="order-detail detail-dessert">
-                    <p>Sobremesa</p>
-                    <p>14,90</p>
+                    <p class="detail-dessert-title">Sobremesa</p>
+                    <p class="detail-dessert-price">14,90</p>
                 </div>
                 <div class="order-detail detail-total">
                     <p>Total</p>
-                    <p>14,90</p>
+                    <p class="detail-total-price">14,90</p>
                 </div>
             </div>
-            <button class="final-button">Tudo certo, pode pedir!</button>
-            <button class="cancel-button">Cancelar</button>
+            <button class="final-button" onclick="send_message_whatsapp()">Tudo certo, pode pedir!</button>
+            <button class="cancel-button" onclick="change_visibility_final_screen()">Cancelar</button>
         </div>
     </div>
 
