@@ -1,5 +1,18 @@
+/* Ordem de altura do z-index: */
+/* 0: default --> 1: header e footer --> 2: finalize-order-screen */
+
+
+/* Configurações gerais */
 * {
     box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.hidden {
+    display: none;
 }
 
 /* Variáveis */
@@ -13,11 +26,8 @@
     --section-margin-left: 16px;
 }
 
-body {
-    font-family: 'Roboto', sans-serif;
-}
 
-/* Fontes */
+/* Seção para o Header */
 .header {
     /* Mudar fonte para Righteous */
     height: var(--header-footer-height);
@@ -30,33 +40,35 @@ body {
 
     z-index: 1;
 
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    
     color: #FFFFFF;
     background-color: #CF2B2B;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .header-title {
     font-family: 'Righteous', cursive;
 
     height: 44px;
+
     font-weight: 400;
     font-size: 44px;
 }
 
 .header-subtitle {
-    margin-top: 5px;
     height: 17px;
+    margin-top: 5px;
+
     font-weight: 400;
     font-size: 18px;
 }
 
+
+/* Seção para o Container */
 .container {
     margin: var(--header-footer-height) 0;
     padding: calc(31px - 27px) 0px 16px calc(19px - 16px); /* cálculos feitos para descontar as margens dos elementos contidos nele */
     
     background-color: #E5E5E5;
-    /* background-color: yellow; */
 }
 
 .section {
@@ -66,78 +78,44 @@ body {
 .section-title {
     font-family: 'Righteous', cursive;
     
+    height: 23px;
     margin-top: 25px;
     margin-left: var(--section-margin-left);
-    height: 23px;
+    
     font-weight: 400;
     font-size: 26px;
     color: #333333;
 }
 
-.footer {
-    height: var(--header-footer-height);
-    position: fixed;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    align-items: center;
-
-    z-index: 1;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-    background-color: #FFFFFF;
-    /* background-color: purple; */
-}
-
-.font-gray {
-    /* Para descrições */
-    color: #A6A6A6;
-}
-
-.font-semi-black {
-    /* Para títulos */
-    color: #333333;
-}
-
-
 .dishes {
     display: flex;
     margin-top: 17px;
-
-    overflow-x: scroll;
     
-    /* background-color: blue; */
+    overflow-x: scroll;
 }
 
 .dishes::-webkit-scrollbar {
-    /* Tirar Scrollbar ENTENDER O CÓDIGO */
+    /* -webkit-scrollbar é um pseudo-elemento para quando o overflow: scroll estiver ativo */
+    /* Nesse caso ele não mostra a scrollbar */
     display: none;
 }
 
+/* Cada item (prato) */
 .dish {
     width: 172px;
     margin-left: var(--section-margin-left);
     padding: var(--dish-padding);
     
     border-radius: 9px;
-
-    box-shadow: 0px 0px 10px -4px rgba(0, 0, 0, 0.25);
     
     background-color: #FFFFFF;
-    /* background-color: red; */
+    box-shadow: 0px 0px 10px -4px rgba(0, 0, 0, 0.25);
     
     position: relative;
 }
 
-.selected-dish {
-    border: 5px #32B72F solid;
-    padding: var(--selected-dish-padding);
-}
-
 .dish img {
+    width: 144px;
     height: 87px;
     border-radius: 4px;
 }
@@ -145,21 +123,23 @@ body {
 ion-icon {
     width: 19px;
     height: 19px;
-
+    
     position: absolute;
     right: calc(11px - var(--selection-border));
     bottom: calc(14px - var(--selection-border));
-
+    
     color: #32B72F;
 }
 
-.hidden-item {
-    display: none;
+.selected-dish {
+    border: 5px #32B72F solid;
+    padding: var(--selected-dish-padding);
 }
 
 .dish-title {
     margin-top: 8px;
     height: 23px;
+
     font-weight: 700;
     font-size: 16px;
     color: #333333;
@@ -177,22 +157,42 @@ ion-icon {
 }
 
 .dish-price {
-    margin-top: 5px;
     height: 19px;
+    margin-top: 5px;
+
     font-weight: 400;
     font-size: 16px;
 }
 
-.finalize-order-button {
+
+/* Seção para o Footer */
+.footer {
+    height: var(--header-footer-height);
+    
+    position: fixed;
+    right: 0;
+    left: 0;
+    bottom: 0;
+
+    z-index: 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    background-color: #FFFFFF;
+}
+
+.ready-to-finalize-button {
     width: calc(100vw - 50px);
     height: 48px;
+
     border-radius: 50px;
-    background-color: #CBCBCB;
     border-width: 0px;
+    background-color: #CBCBCB;
 
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
-    
     font-size: 20px;
     line-height: 23px;
 
@@ -204,6 +204,8 @@ ion-icon {
     background-color: #32B72F;
 }
 
+
+/* Seção final com tela para envio da ordem/pedido */
 .finalize-order-screen {
     position: fixed;
     top: 0;
@@ -229,9 +231,8 @@ ion-icon {
     font-size: 22px;
     color: #FFFFFF;
 
-    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.25);
-    
     background-color: #50D074;
+    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.25);
 }
 
 .finalize-order-menu p {
@@ -244,10 +245,9 @@ ion-icon {
     text-align: center;
 }
 
-
 .finalize-order-menu button {
-    height: 52px;
     width: 100%;
+    height: 52px;
 
     border-radius: 100px;
     border-width: 0px;
@@ -270,11 +270,11 @@ ion-icon {
     justify-content: space-between;
 }
 
-.detail-total {
+.order-detail-total {
     font-weight: bold;
 }
 
-.final-button {
+.send-order-button {
     background-color: #FFFFFF;
     font-size: 22px;
     color: #50D074;

@@ -1,7 +1,7 @@
 // Lista com os itens selecionados. Inicialmente não há nenhum
 let selected_items = [null, null, null]
 // Lista com os pedidos realizados
-let orders = []
+let orders = [[null, null], [null, null], [null, null]]
 // Valor total da ordem de compra
 let total_value = 0
 
@@ -9,37 +9,32 @@ let total_value = 0
 function add_selected_item(element_dish) {
     // Pega a seção de pratos e verifica qual classe é (comida, bebida ou sobremesa)
     // e coloca esse item na lista de itens selecionados, no seu devido lugar
-    let section_element = element_dish.parentNode.parentNode  // Pega a seção efetivamente
+    const section_element = element_dish.parentNode.parentNode  // Pega a seção efetivamente
     if (section_element.classList.contains('food')) {
-        
-        selected_items[0] = null
+        // Comida
         if (element_dish.classList.contains('selected-dish')) {
-            
             selected_items[0] = element_dish
         }
+
     } else if (section_element.classList.contains('drink')) {
-        
-        selected_items[1] = null
+        // Bebida
         if (element_dish.classList.contains('selected-dish')) {
-            
             selected_items[1] = element_dish
         }
+
     } else if (section_element.classList.contains('dessert')) {
-        
-        selected_items[2] = null
+        // Sobremesa
         if (element_dish.classList.contains('selected-dish')) {
-            
             selected_items[2] = element_dish
         }
     }
 }
 
 
-// Quero verificar se todos os itens foram selecionados, por isso farei uma função
-// para fazer essa verificação toda vez que um item é selecionado/não selecionado
+// Verifica se todos os itens estão selecionados, retorna um booleano
 function is_all_selected() {
+    // Verifica se todos os três itens estão selecionados
     for (let i = 0; i < 3; i++) {
-        // Verifica se possui três itens selecionados
         if (selected_items[i] === null) {
             return false
         }
@@ -48,17 +43,17 @@ function is_all_selected() {
 }
 
 
-// Faço as mudanças no botão para finalizar ordem
+// Faço as mudanças no botão caso possa finalizar ordem
 function activate_button() {
-    const button_element = document.querySelector('.finalize-order-button')
-    let is_ready = is_all_selected()
+    const button_element = document.querySelector('.ready-to-finalize-button')
     
     // Muda aparência e texto botão se todas as classes estão selecionadas
-    if (is_ready) {
-        // Altera aparência e texto do botão
+    if (is_all_selected()) {
+        // Altera aparência e texto do botão para pronto
         button_element.classList.add('ready_to_finalize_order')
         button_element.innerHTML = 'Fechar pedido'
     } else {
+        // Altera aparência e texto do botão para não pronto ainda
         button_element.classList.remove('ready_to_finalize_order')
         button_element.innerHTML = 'Selecione os 3 itens<br/>para fechar o pedido'
     }
@@ -66,7 +61,7 @@ function activate_button() {
 
 
 function select_dish(element_dish) {
-    // Pegando parte dos pratos
+    // Pegando parte dos pratos (".dishes")
     const father_element = element_dish.parentNode
 
     // Buscando prato selecionado
@@ -79,14 +74,14 @@ function select_dish(element_dish) {
         selected_dish_element.classList.remove('selected-dish')
         // Escolhe o ion-icon de selecionado desse prato e desativa
         let check_item_element_selected = selected_dish_element.querySelector('ion-icon')
-        check_item_element_selected.classList.add('hidden-item')
+        check_item_element_selected.classList.add('hidden')
     }
     
     // Ativa/desativa caixa de seleção
     element_dish.classList.toggle('selected-dish')
     // Pega o ion-icon desse prato e ativa
-    check_item_element = element_dish.querySelector('ion-icon')
-    check_item_element.classList.toggle('hidden-item')
+    let check_item_element = element_dish.querySelector('ion-icon')
+    check_item_element.classList.toggle('hidden')
 
     // Adiciona o item selecionado à lista de itens selecionados
     add_selected_item(element_dish)
@@ -104,9 +99,8 @@ function make_order_list() {
         let dish_name = selected_items[i].querySelector('.dish-title')
         let dish_price = selected_items[i].querySelector('.dish-price')
 
-        orders.push([])
-        orders[i].push(dish_name.innerText)
-        orders[i].push(dish_price.innerText)
+        orders[i][0] = dish_name.innerText
+        orders[i][1] = dish_price.innerText
 
         total_value += currency_to_number(orders[i][1])
     }
@@ -150,7 +144,7 @@ function update_order_screen(element=document) {
 function change_visibility_final_screen() {
     // Aparece ou remove a tela final
     const finalize_order_screen = document.querySelector('.finalize-order-screen')
-    finalize_order_screen.classList.toggle('hidden-item')
+    finalize_order_screen.classList.toggle('hidden')
 }
 
 
@@ -160,10 +154,10 @@ function send_to_final_screen() {
         return {}
     }
 
-    change_visibility_final_screen()
-
     // Atualiza os detalhes da ordem de compra com o pedido
     update_order_screen()
+
+    change_visibility_final_screen()
 }
 
 
