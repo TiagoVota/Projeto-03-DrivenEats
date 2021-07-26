@@ -132,11 +132,11 @@ function update_order_screen(element=document) {
 
     // Vamos atualizar manualmente para não abusar muita dos recursos que não aprendemos
     change_innerHTML(element, '.detail-food-title', orders[0][0])
-    change_innerHTML(element, '.detail-food-price', orders[0][1])
+    change_innerHTML(element, '.detail-food-price', orders[0][1].replace('R$ ', ''))
     change_innerHTML(element, '.detail-drink-title', orders[1][0])
-    change_innerHTML(element, '.detail-drink-price', orders[1][1])
+    change_innerHTML(element, '.detail-drink-price', orders[1][1].replace('R$ ', ''))
     change_innerHTML(element, '.detail-dessert-title', orders[2][0])
-    change_innerHTML(element, '.detail-dessert-price', orders[2][1])
+    change_innerHTML(element, '.detail-dessert-price', orders[2][1].replace('R$ ', ''))
     change_innerHTML(element, '.detail-total-price', number_to_currency(total_value))
 }
 
